@@ -1,0 +1,29 @@
+.gitignore
+
+#TCC_DIR = $(TUP_CWD)/tcc
+#compiler = $(TCC_DIR)/tcc $(TCC_DIR)/libtcc1.a
+#CC = $(TCC_DIR)/tcc -I$(TCC_DIR)/include -B$(TCC_DIR)
+
+GITTUP_ROOT = $(TUP_CWD)
+GCC_ROOT = $(TUP_CWD)/gcc
+BINUTILS_ROOT = $(TUP_CWD)/binutils
+LINUX_ROOT = $(TUP_CWD)/linux
+UCLIBC_ROOT = $(TUP_CWD)/uClibc
+SLASH_ROOT = $(TUP_CWD)/slash
+
+compiler_files = $(SLASH_ROOT)/bin/xgcc $(SLASH_ROOT)/bin/cc1 $(SLASH_ROOT)/bin/as $(SLASH_ROOT)/bin/ld $(SLASH_ROOT)/lib/crtbegin.o $(SLASH_ROOT)/lib/crtend.o $(SLASH_ROOT)/lib/libgcc.a $(SLASH_ROOT)/lib/crt1.o $(SLASH_ROOT)/lib/crti.o $(SLASH_ROOT)/lib/crtn.o $(SLASH_ROOT)/lib/libc.a
+compiler_proper = $(SLASH_ROOT)/bin/xgcc $(SLASH_ROOT)/bin/cc1 $(SLASH_ROOT)/bin/as
+
+archiver = $(BINUTILS_ROOT)/binutils/ar
+
+!host_ar = |> ^ AR [host] %o^ rm -f %o; ar crs %o %f |>
+!host_cc = |> ^ CC [host] %f^ gcc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
+
+!cc = | $(compiler_files) |> ^ CC %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
+!cc_link = | $(compiler_files) |> ^ CC-LD %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) %f -o %o |>
+!cc_proper = | $(compiler_proper) |> ^ CC %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include/ -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
+
+!ar = | $(archiver) |> ^ AR %o^ rm -f %o; $(archiver) crs %o %f |>
+!ld = | $(compiler_files) |> ^ LD %o^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin $(LDFLAGS) $(LDFLAGS_%o) %f -o %o |>
+
+CFLAGS += -O2

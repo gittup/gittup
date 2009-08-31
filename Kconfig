@@ -1,0 +1,17 @@
+mainmenu "Gittup.org Configuration"
+
+menu "Linux Kernel"
+pushd "linux"
+source "arch/x86/Kconfig"
+popd
+endmenu
+
+menu "Binutils"
+source "binutils/Kconfig"
+endmenu
+
+menu "uClibc"
+pushd "uClibc"
+source "extra/Configs/Config.in"
+popd
+endmenu
