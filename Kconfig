@@ -15,3 +15,9 @@ pushd "uClibc"
 source "extra/Configs/Config.in"
 popd
 endmenu
+
+menu "busybox"
+pushd "busybox"
+source "Config.in"
+popd
+endmenu
