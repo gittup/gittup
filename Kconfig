@@ -21,3 +21,7 @@ pushd "busybox"
 source "Config.in"
 popd
 endmenu
+
+menu "Support libraries"
+source "ncurses/Kconfig"
+endmenu
