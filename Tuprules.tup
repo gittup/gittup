@@ -1,9 +1,5 @@
 .gitignore
 
-#TCC_DIR = $(TUP_CWD)/tcc
-#compiler = $(TCC_DIR)/tcc $(TCC_DIR)/libtcc1.a
-#CC = $(TCC_DIR)/tcc -I$(TCC_DIR)/include -B$(TCC_DIR)
-
 GITTUP_ROOT = $(TUP_CWD)
 GCC_ROOT = $(TUP_CWD)/gcc
 BINUTILS_ROOT = $(TUP_CWD)/binutils
@@ -11,19 +7,31 @@ LINUX_ROOT = $(TUP_CWD)/linux
 UCLIBC_ROOT = $(TUP_CWD)/uClibc
 SLASH_ROOT = $(TUP_CWD)/slash
 
-compiler_files = $(SLASH_ROOT)/bin/xgcc $(SLASH_ROOT)/bin/cc1 $(SLASH_ROOT)/bin/as $(SLASH_ROOT)/bin/ld $(SLASH_ROOT)/lib/crtbegin.o $(SLASH_ROOT)/lib/crtend.o $(SLASH_ROOT)/lib/libgcc.a $(SLASH_ROOT)/lib/crt1.o $(SLASH_ROOT)/lib/crti.o $(SLASH_ROOT)/lib/crtn.o $(SLASH_ROOT)/lib/libc.a
-compiler_proper = $(SLASH_ROOT)/bin/xgcc $(SLASH_ROOT)/bin/cc1 $(SLASH_ROOT)/bin/as
+compiler_files = $(GCC_ROOT)/gcc/xgcc $(GCC_ROOT)/gcc/cc1 $(BINUTILS_ROOT)/gas/as $(BINUTILS_ROOT)/ld/ld $(GCC_ROOT)/gcc/crtbegin.o $(GCC_ROOT)/gcc/crtend.o $(GCC_ROOT)/gcc/libgcc.a $(UCLIBC_ROOT)/libc/crt1.o $(UCLIBC_ROOT)/libc/crti.o $(UCLIBC_ROOT)/libc/crtn.o $(UCLIBC_ROOT)/libc/libc.a
+compiler_proper = $(GCC_ROOT)/gcc/xgcc $(GCC_ROOT)/gcc/cc1 $(BINUTILS_ROOT)/gas/as
 
 archiver = $(BINUTILS_ROOT)/binutils/ar
 
 !host_ar = |> ^ AR [host] %o^ rm -f %o; ar crs %o %f |>
 !host_cc = |> ^ CC [host] %f^ gcc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
 
-!cc = | $(compiler_files) |> ^ CC %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h -ftup-uclibc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
-!cc_link = | $(compiler_files) |> ^ CC-LD %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h -ftup-uclibc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) %f -o %o |>
-!cc_proper = | $(compiler_proper) |> ^ CC %f^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/bin -nostdinc -I$(GCC_ROOT)/gcc/ginclude -isystem $(GCC_ROOT)/include-fixed -isystem $(UCLIBC_ROOT)/include/ -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386 -include $(UCLIBC_ROOT)/include/libc-symbols.h -ftup-uclibc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
+CC = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas
+CC_LD = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas -B$(BINUTILS_ROOT)/ld
+LD = $(BINUTILS_ROOT)/ld/ld
+BASE_CFLAGS += -B$(UCLIBC_ROOT)/libc
+BASE_CFLAGS += -B$(BINUTILS_ROOT)/ld
+BASE_CFLAGS += -nostdinc
+BASE_CFLAGS += -I$(GCC_ROOT)/gcc/ginclude
+BASE_CFLAGS += -isystem $(GCC_ROOT)/include-fixed
+BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/include
+BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386
+BASE_CFLAGS += -include $(UCLIBC_ROOT)/include/libc-symbols.h
+BASE_CFLAGS += -ftup-uclibc
+!cc = | $(compiler_files) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS)  $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
+!cc_link = | $(compiler_files) |> ^ CC-LD %f^ $(CC) %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%f) $(LDFLAGS) $(LDFLAGS_%o) |>
+!cc_proper = | $(compiler_proper) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
 
 !ar = | $(archiver) |> ^ AR %o^ rm -f %o; $(archiver) crs %o %f |>
-!ld = | $(compiler_files) |> ^ LD %o^ $(SLASH_ROOT)/bin/xgcc -B$(SLASH_ROOT)/lib -B$(SLASH_ROOT)/bin $(LDFLAGS) $(LDFLAGS_%o) %f -o %o |>
+!ld = | $(compiler_files) |> ^ LD %o^ $(CC) %f -o %o $(BASE_CFLAGS) $(LDFLAGS) $(LDFLAGS_%o) |>
 
 CFLAGS += -O2
