@@ -25,3 +25,7 @@ endmenu
 menu "Support libraries"
 source "ncurses/Kconfig"
 endmenu
+
+menu "Games"
+source "nethack/Kconfig"
+endmenu
