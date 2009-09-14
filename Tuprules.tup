@@ -18,20 +18,26 @@ archiver = $(BINUTILS_ROOT)/binutils/ar
 CC = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas
 CC_LD = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas -B$(BINUTILS_ROOT)/ld
 LD = $(BINUTILS_ROOT)/ld/ld
+BASE_PROPER_CFLAGS += -B$(BINUTILS_ROOT)/ld
+BASE_PROPER_CFLAGS += -nostdinc
+BASE_PROPER_CFLAGS += -I$(GCC_ROOT)/gcc/ginclude
+BASE_PROPER_CFLAGS += -isystem $(GCC_ROOT)/include-fixed
+BASE_CFLAGS += $(BASE_PROPER_CFLAGS)
 BASE_CFLAGS += -B$(UCLIBC_ROOT)/libc
-BASE_CFLAGS += -B$(BINUTILS_ROOT)/ld
-BASE_CFLAGS += -nostdinc
-BASE_CFLAGS += -I$(GCC_ROOT)/gcc/ginclude
-BASE_CFLAGS += -isystem $(GCC_ROOT)/include-fixed
 BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/include
 BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386
 BASE_CFLAGS += -include $(UCLIBC_ROOT)/include/libc-symbols.h
+BASE_CFLAGS += -I$(LINUX_ROOT)/include
+BASE_CFLAGS += -I$(LINUX_ROOT)/arch/@(ARCH)/include
 BASE_CFLAGS += -ftup-uclibc
-!cc = | $(compiler_files) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS)  $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
+!cc = | $(compiler_files) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
 !cc_link = | $(compiler_files) |> ^ CC-LD %f^ $(CC) %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%f) $(LDFLAGS) $(LDFLAGS_%o) |>
-!cc_proper = | $(compiler_proper) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
+!cc_proper = | $(compiler_proper) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_PROPER_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |>
 
 !ar = | $(archiver) |> ^ AR %o^ rm -f %o; $(archiver) crs %o %f |>
 !ld = | $(compiler_files) |> ^ LD %o^ $(CC) %f -o %o $(BASE_CFLAGS) $(LDFLAGS) $(LDFLAGS_%o) |>
+
+!flex = |> flex -o %o %f |>
+!bison = |> bison -o %B.c -d %f |>
 
 CFLAGS += -O2
