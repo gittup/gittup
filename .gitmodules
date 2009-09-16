@@ -1,0 +1,21 @@
+[submodule "binutils"]
+	path = binutils
+	url = git://gittup.org/binutils.git
+[submodule "busybox"]
+	path = busybox
+	url = git://gittup.org/busybox.git
+[submodule "gcc"]
+	path = gcc
+	url = git://gittup.org/gcc.git
+[submodule "linux"]
+	path = linux
+	url = git://gittup.org/linux.git
+[submodule "ncurses"]
+	path = ncurses
+	url = git://gittup.org/ncurses.git
+[submodule "nethack"]
+	path = nethack
+	url = git://gittup.org/nethack.git
+[submodule "uClibc"]
+	path = uClibc
+	url = git://gittup.org/uClibc.git
