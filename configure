@@ -1,1 +1,5 @@
-~/old-gittup/kconfig/mconf ./Kconfig 
+KCONFIG_CONFIG=tup.config
+export KCONFIG_CONFIG
+KCONFIG_OVERWRITECONFIG=1
+export KCONFIG_OVERWRITECONFIG
+~/newkconfig/kconfig/mconf ./Kconfig
