@@ -14,6 +14,7 @@ archiver = $(BINUTILS_ROOT)/binutils/ar
 
 !host_ar = |> ^ AR [host] %o^ rm -f %o; ar crs %o %f |>
 !host_cc = |> ^ CC [host] %f^ gcc $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) -c %f -o %o |>
+!host_ld = |> ^ LD [host] %o^ gcc $(LDFLAGS) $(LDFLAGS_%o) -o %o %f |>
 
 CC = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas
 CC_LD = $(GCC_ROOT)/gcc/xgcc -B$(GCC_ROOT)/gcc -B$(BINUTILS_ROOT)/gas -B$(BINUTILS_ROOT)/ld
