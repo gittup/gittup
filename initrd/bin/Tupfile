@@ -1,0 +1,5 @@
+include_rules
+
+include $(GITTUP_ROOT)/busybox/install.tup
+include $(GITTUP_ROOT)/ncurses/install.tup
+include $(GITTUP_ROOT)/nethack/install.tup

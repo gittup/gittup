@@ -1,0 +1,2 @@
+#! /bin/ash
+for i in /etc/init.d/*.sh; do sh $i; done

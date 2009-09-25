@@ -1,0 +1,7 @@
+include_rules
+
+ifeq (@(NETHACK),y)
+: $(GITTUP_ROOT)/nethack/dat/nhdat |> !cp |> %b
+: |> ^ CREATE %o^ touch %o |> perm
+: |> ^ CREATE %o^ touch %o |> record
+endif
