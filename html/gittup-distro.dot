@@ -1,0 +1,65 @@
+digraph g {
+	rankdir=LR;
+	node [width=0.3 height=0.3 shape=circle style=filled label=""];
+	edge [dir=back];
+
+	{ node [shape="rectangle" fontsize=10 fillcolor="#ffffdd"]
+		clabel [label="master"];
+		tclabel [label="gittup"];
+		blabel [label="master"];
+		tblabel [label="gittup"];
+		alabel [label="master"];
+		talabel [label="gittup"];
+	}
+
+	{ node [fillcolor="#d2b48c"]
+		c1 c2 c3 c4 c5;
+		c [label="nethack" shape=rectangle fillcolor="#ffffbb"];
+		c5 [fillcolor="#ffffbb"];
+	};
+	c -> c1 [style=invis];
+	c1 -> c2 -> c3 -> c4 -> c5;
+	c5 -> clabel;
+
+	{ node [fillcolor="#ff8c00"]
+		tc1 tc2 tc3;
+		tc3 [peripheries=2 fillcolor="#ffa500"];
+	}
+	tc1 -> tc2 -> tc3;
+	tc3 -> tclabel;
+	c5 -> tc1 [weight=0];
+
+	{ node [fillcolor="#00bbbb"]
+		b1 b2 b3 b4 b5 b6;
+		b [label="binutils" shape=rectangle fillcolor="#bbffff"];
+		b5 [fillcolor="#bbffff"];
+	};
+	b -> b1 [style=invis];
+	b1 -> b2 -> b3 -> b4 -> b5 -> b6;
+	b6 -> blabel;
+
+	{ node [fillcolor="#9370db"]
+		tb1 tb2;
+		tb2 [peripheries=2 fillcolor="#8a2be2"];
+	}
+	tb1 -> tb2;
+	tb2 -> tblabel;
+	b5 -> tb1 [weight=0];
+
+	{ node [fillcolor="#00bb00"]
+		a1 a2 a3 a4 a5 a6 a7;
+		a [label="linux" shape=rectangle fillcolor="#bbffbb"];
+		a3 [fillcolor="#bbffbb"];
+	};
+	a -> a1 [style=invis];
+	a1 -> a2 -> a3 -> a4 -> a5 -> a6 -> a7;
+	a7 -> alabel;
+
+	{ node [fillcolor="#ffd700"]
+		ta1 ta2;
+		ta2 [peripheries=2 fillcolor="#ffff00"];
+	}
+	ta1 -> ta2;
+	ta2 -> talabel;
+	a3 -> ta1 [weight=0];
+};

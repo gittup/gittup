@@ -1,0 +1,4 @@
+.gitignore
+ifeq (@(GITTUP_WEB),y)
+: foreach *.dot |> ^ DOT %f^ dot -Tpng %f > %o |> %B.png
+endif

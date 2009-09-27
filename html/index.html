@@ -1,0 +1,209 @@
+<html>
+<head>
+<title>gittup.org: [Wicked cool tagline.]</title>
+<style type="text/css">
+pre {
+	border-style: dashed;
+	border-width: 1;
+	margin-left: 2em;
+	margin-right: 2em;
+	background-color: #ffffdd;
+}
+img {
+	border-style: double;
+}
+em {
+	background-color: #ffffdd;
+}
+sup {
+	color: #0000ff;
+}
+</style>
+</head>
+<body>
+<center><h1>gittup.org</h1></center>
+
+<h2>A new linux distribution!</h2>
+<p>This is an entire(-ish) linux distribution in <a href="http://git-scm.com/">git</a>. Everything is built with <a href="http://gittup.org/tup/">tup</a>. That's why it's called gittup.</p>
+
+<h2>How it works</h2>
+<p>A linux distribution is just a collection of packages. Each package has a development history:</p>
+<img src="packages.png">
+<p>For example, the green tree might correspond to Linus' kernel tree. Your typical linux distribution will select particular versions of the packages and put them all together. As a user you end up with something like this:</p>
+<img src="standard-distro.png">
+
+<p>With gittup.org, you get the whole development history (where applicable) as part of the standard distribution. As a user you get this:</p>
+<img src="gittup-distro.png">
+
+<p>All of these git projects become submodules of the gittup.git repository. The extra yellow/purple/orange nodes correspond to the gittup branch that I maintain at gittup.org. This mostly includes the changes to support tup, which are needed to make configuration changes and bisection across the entire distribution more practical. Generally what I do is:</p>
+<ul>
+  <li>Add Tupfiles in place of Makefiles</li>
+  <li>Add Kconfig support to configure the software (if not already present)</li>
+  <li>Remove .gitignore files (they are generated automatically by tup)</li>
+</ul>
+<p>Sometime later if I want to update the software to a newer version, I'll pull from the upstream repository and merge it to the gittup branch:</p>
+<img src="gittup-distro-updated.png">
+<p>Of course, since you have the git history of all the packages, you can do it too. If it all works, you can send me the patch to include support for the new version.</p>
+
+<h2>What's included</h2>
+<p>You get the git trees of:</p>
+<ul>
+  <li>binutils from git://github.com/jiez/binutils.git</li>
+  <li>busybox from git://busybox.net/busybox.git</li>
+  <li>linux from git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git</li>
+  <li>uClibc from git://uclibc.org/uClibc.git</li>
+</ul>
+<p>Additionally, you get releases of:</p>
+<ul>
+  <li>gcc-core-4.4.1</li>
+  <li>ncurses-5.7</li>
+  <li>nethack-3.4.3</li>
+</ul>
+<p>These are all imported into git from their respective tarballs. I couldn't find actual version control repositories for ncurses or nethack, which is why those have to be imported. I started to use gcc from their git repo, but the newest gcc in git is like 50% slower for some reason, so I ditched it along with all their other crazy non-C compilers and just imported gcc-core.</p>
+
+<h2>How to install</h2>
+<p>To bootstrap everything, you'll need some development tools. Make sure you have at least:</p>
+<ul>
+  <li>gcc</li>
+  <li>ar</li>
+  <li>ld</li>
+  <li>nm</li>
+  <li>objcopy</li>
+  <li>flex</li>
+  <li>bison</li>
+  <li>qemu (if you want to run it in an emulator)</li>
+</ul>
+<h4>Install tup</h4>
+<p>You need <a href="http://gittup.org/tup">tup</a>, so install that and put it in your path somewhere.</p>
+<h4>Install kconfig</h4>
+<p>You also need to build a patched kconfig, which supports the pushd/popd directives. This is so I don't have to modify the Kconfig files in the kernel or busybox or wherever.</p>
+<pre>
+~$ git clone git://gittup.org/kconfig.git
+~$ cd kconfig
+kconfig$ tup init
+kconfig$ tup scan &amp;&amp; tup upd
+</pre>
+<p>And make sure you add tup-mconf and tup-conf to your path as well.</p>
+
+<h4>Download gittup.org</h4>
+<p>Now you need to download the entire distribution. This is about 500MB worth of stuff to download, so it'll be a while. Also you have to type "git" and "tup" a few million times, because everything involves either git, or tup, or is named after git and/or tup.</p>
+<pre>
+~$ git clone git://gittup.org/gittup.git
+~$ cd gittup
+gittup$ git submodule init
+gittup$ git submodule update
+</pre>
+
+<p>Once you get to this point, you own gittup.org as much as I do. Well, I still own the domain name, cuz I ponied up like 10 bucks for that, but I mean you have all the source, all the history, even this crappy webpage. You can post it all online somewhere and start your own linux distribution.</p>
+
+<h4>Building gittup.org</h4>
+<p>Anyway, now you need to setup tup and compile everything. You need to initialize tup once. This sets the root of the build directory where tup will watch for files and track dependencies. It's kinda like <em>git&nbsp;init</em>, but for the build system instead of the version control system.</p>
+<pre>
+gittup$ tup init
+</pre>
+<p>You will also want to start the file monitor. If you restart your computer, the file monitor needs to be restarted as well. You may need to up the /proc/sys/fs/inotify/max_user_watches variable before doing this. Sometimes it works for me with the default 8192, and sometimes I just bump it to 65536.</p>
+<pre>
+gittup$ tup monitor
+</pre>
+
+<p>Or if you don't like the file monitor, just use "tup scan &amp;&amp; tup upd" instead of "tup upd". This will go through the entire directory hierarchy and stat every file, kinda like what make or other build systems would do. Tup is still faster, though.</p>
+
+<p>Although the shell returns immediately after the monitor command, tup will be constructing the initial filesystem database in the background. It finishes when you see the line "Initialized in X seconds."</p>
+<p>Now you need to configure the distribution. This is done with Kconfig, which you run by using <em>./menuconfig</em> or <em>./oldconfig</em>. The first time you run menuconfig, please set the following configuration options:</p>
+<ul>
+  <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features</li>
+  <li><font color="red">OFF</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features -&gt; Load all symbols for debugging/ksymoops</li>
+  <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support</li>
+  <li><font color="green">ON</font>: busybox -&gt; Init Utilities -&gt; init</li>
+  <li><font color="green">ON</font>: busybox -&gt; Coreutils -&gt; mknod</li>
+  <li><font color="green">ON</font>: busybox -&gt; Shells -&gt; Choose your default shell -&gt; ash</li>
+</ul>
+<pre>
+gittup$ ./menuconfig
+</pre>
+
+<p>Finally, you can build everything. You can use 'tup upd -j2' or something if you want to parallelize the compilation. Tup is parallel-safe, which is totally sweet.</p>
+<pre>
+gittup$ tup upd
+</pre>
+<p>Whenever you edit source files, Tupfiles, change the configuration, pull things from git, or whatever, just run <em>tup&nbsp;upd</em> to bring everything up-to-date.</p>
+
+<h4>Running in qemu</h4>
+<p>Use the qemu.sh script to run the kernel and initrd that you just built. There is no root filesystem image, since everything runs from the ramdisk.</p>
+<pre>
+gittup$ sh qemu.sh
+</pre>
+<p>When it boots, ncurses generates some weird messages, but after a bit you should be able to press enter to get a shell. Then type nethack. First one to ascend in nethack using gittup.org wins an autographed CD with all my favorite <a href="http://modarchive.org/">MODs</a>. I know you're thinking: "How can I pass up a CD of crappy music, autographed by some guy I don't know, who didn't even write the music?" I couldn't express it better myself. Now get to ascending!</p>
+
+<h4>Saving your config</h4>
+<p>You should save your tup.config file so you can easily rebuild the distribution you just built. Probably the best way to do that is to track it in git. If you want to you can track it in a separate branch and merge the gittup.git master branch into your local branch. Another option is to just check it into the master branch. It shouldn't ever conflict, since I won't push a file called "tup.config" into the git repository. However, if you use the master branch, you will get messages like "Your branch is ahead of origin/master by X commits", which may be annoying if you plan to do real development in gittup.org and send me patches.</p>
+<pre>
+gittup$ git add tup.config
+gittup$ git commit
+</pre>
+<p>Feel free to now play around with the config, but keep in mind that kallsyms and loadable kernel modules are not yet supported. Other options that I don't use may be broken as well, since my script to convert Makefiles to Tupfiles is not perfect.</p>
+
+<h4>Regular updates</h4>
+<p>Periodically you may want to update to the latest version. This involves getting the new changes onto your machine with git, and then building them with tup.</p>
+<pre>
+gittup$ git pull
+gittup$ git submodule update
+gittup$ ./oldconfig
+gittup$ tup upd
+</pre>
+
+<h2>What gittup.org does that nobody else can</h2>
+<h3>Make changes!</h3>
+<p>Harness the awesome power of tup to make changes to your system -- <i>anywhere</i> in the system -- and quickly see the results.</p>
+<pre>
+[marf@captainfalcon gittup]$ vi nethack/src/spell.c
+[marf@captainfalcon gittup]$ vi busybox/coreutils/ls.c
+[marf@captainfalcon gittup]$ time tup upd -j2
+Executing Commands
+[    0/9    ] busybox/coreutils/CC ls.c
+[    1/9    ] nethack/CC src/spell.c
+[    2/9    ] busybox/coreutils/LD built-in.o
+[    3/9    ] busybox/LINK busybox
+[    4/9    ] nethack/LD nethack
+[    5/9    ] initrd/bin/CP busybox
+[    6/9    ] initrd/bin/CP nethack
+[    7/9    ] initrd/MKINITRD
+[    8/9    ] initrd/GZIP initrd
+[    9/9    ]
+
+real    0m1.571s
+user    0m1.888s
+sys     0m0.269s
+</pre>
+<p>Yeah, I'm marf. Yeah, my computer is captainfalcon. Yeah, I just edited the spellcasting in nethack because I felt like it. Then I changed <em>ls</em> to print "Sup bro, way to list those files", because I like to be encouraged when I list things, and because I like it when people call me "bro"<sup>1</sup>. Then I re-compiled both and got a new initrd in like two seconds. Go ahead -- try to change the <em>ls</em> on your system to print out extra messages for no reason!<sup>2</sup> You can't do it!! Unless of course you're running gittup.org. But if you're running gittup.org, why aren't you playing nethack or needlessly recompiling things just for fun? In fact, how are you reading this webpage?? It doesn't even come with a web browser.</p>
+<p><font size="-1"><sup>1</sup>Not actually true.</font></p>
+<p><font size="-1"><sup>2</sup>Naturally, this is a metaphor for doing something useful, and having a real build system to make it possible.</font></p>
+<p>Note: If you harmlessly change a file in gcc, it still takes forever, since it recompiles everything, since I don't have tup short circuit builds, yet.</p>
+<p>Note: You'll probably want a decent working knowledge of git to manage your changes. You can probably use format-patch to send me patches, and I think I can include them with 'git am' somehow. However, I'm no GitSu master, so I'll probably screw it up and have to re-do everything like always.</p>
+
+<h3>Bisection!</h3>
+<p>Let's say your compy86 is running fine, and then you update to get the latest, and something breaks. You can use git bisect across your *entire* linux distribution to find the commit that broke it.</p>
+<p>Note: It may not work across config changes, since tup doesn't automatically run 'oldconfig' when necessary.</p>
+<p>Note: I've never actually tried this, so we'll just assume it works.</p>
+
+<h2>What gittup.org doesn't do</h2>
+<p>In fairness, there are a few things gittup.org doesn't do. For example, your current linux distribution might be able to play movies. Well, gittup.org can't do that. Or you might use it to browse the web. Well, gittup.org can't do that. In fact, all you can really do with gittup.org is recompile things really fast and play nethack.</p>
+<p>Some things that actually need fixing:</p>
+<ul>
+  <li>Support arches other than x86 (I hardcoded some things... lazyness)</li>
+  <li>Kallsyms support in the kernel</li>
+  <li>Loadable kernel modules</li>
+</ul>
+<p>Some things that will never be in gittup.org:</p>
+<ul>
+  <li>make</li>
+  <li>makedepend</li>
+  <li>automake</li>
+  <li>autoconf</li>
+  <li>libtool</li>
+  <li>ant</li>
+  <li>scons</li>
+  <li>glibc</li>
+</ul>
+</body>
+</html>

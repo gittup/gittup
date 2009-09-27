@@ -29,3 +29,7 @@ endmenu
 menu "Games"
 source "nethack/Kconfig"
 endmenu
+
+menu "gittup.org"
+source "html/Kconfig"
+endmenu

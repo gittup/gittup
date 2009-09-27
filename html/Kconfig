@@ -1,0 +1,9 @@
+config GITTUP_WEB
+	bool "gittup web images"
+	default n
+	help
+	  Uses graphviz to generate .png files from .dot files for the
+	  gittup.org website.
+
+	  Say n here unless you want to view the web pages locally, or create
+	  your own gittup.org website.

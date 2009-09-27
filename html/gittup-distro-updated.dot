@@ -1,0 +1,28 @@
+digraph g {
+	rankdir=LR;
+	node [width=0.3 height=0.3 shape=circle style=filled label=""];
+	edge [dir=back];
+
+	{ node [shape="rectangle" fontsize=10 fillcolor="#ffffdd"]
+		blabel [label="master"];
+		tblabel [label="gittup"];
+	}
+
+	{ node [fillcolor="#00bbbb"]
+		b1 b2 b3 b4 b5 b6;
+		b [label="binutils" shape=rectangle fillcolor="#bbffff"];
+		b6 [fillcolor="#bbffff"];
+	};
+	b -> b1 [style=invis];
+	b1 -> b2 -> b3 -> b4 -> b5 -> b6;
+	b6 -> blabel;
+
+	{ node [fillcolor="#9370db"]
+		tb1 tb2 tb3;
+		tb3 [peripheries=2 fillcolor="#8a2be2"];
+	}
+	tb1 -> tb2 -> tb3;
+	b5 -> tb1 [weight=0];
+	b6 -> tb3 [weight=0];
+	tb3 -> tblabel;
+};

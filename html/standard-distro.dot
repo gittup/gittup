@@ -1,0 +1,25 @@
+digraph g {
+	rankdir=LR;
+	node [width=0.3 height=0.3 shape=circle style=filled label=""];
+
+	{ node [fillcolor="#ffffbb"]
+		c7;
+		c [label="nethack" shape=rectangle];
+		c7 [peripheries=2];
+	};
+	c -> c7 [style=invis];
+
+	{ node [fillcolor="#bbffff"]
+		b5;
+		b [label="binutils" shape=rectangle];
+		b5 [peripheries=2];
+	};
+	b -> b5 [style=invis];
+
+	{ node [fillcolor="#bbffbb"]
+		a3;
+		a [label="linux" shape=rectangle];
+		a3 [peripheries=2];
+	};
+	a -> a3 [style=invis];
+};
