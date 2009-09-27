@@ -111,9 +111,9 @@ gittup$ tup monitor
 <p>Although the shell returns immediately after the monitor command, tup will be constructing the initial filesystem database in the background. It finishes when you see the line "Initialized in X seconds."</p>
 <p>Now you need to configure the distribution. This is done with Kconfig, which you run by using <em>./menuconfig</em> or <em>./oldconfig</em>. The first time you run menuconfig, please set the following configuration options:</p>
 <ul>
+  <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support</li>
   <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features</li>
   <li><font color="red">OFF</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features -&gt; Load all symbols for debugging/ksymoops</li>
-  <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support</li>
   <li><font color="green">ON</font>: busybox -&gt; Coreutils -&gt; mknod</li>
   <li><font color="green">ON</font>: busybox -&gt; Init Utilities -&gt; init</li>
   <li><font color="green">ON</font>: busybox -&gt; Shells -&gt; Choose your default shell -&gt; ash</li>
