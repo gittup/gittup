@@ -114,9 +114,10 @@ gittup$ tup monitor
   <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features</li>
   <li><font color="red">OFF</font>: Linux Kernel -&gt; General Setup -&gt; Configure standard kernel features -&gt; Load all symbols for debugging/ksymoops</li>
   <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support</li>
-  <li><font color="green">ON</font>: busybox -&gt; Init Utilities -&gt; init</li>
   <li><font color="green">ON</font>: busybox -&gt; Coreutils -&gt; mknod</li>
+  <li><font color="green">ON</font>: busybox -&gt; Init Utilities -&gt; init</li>
   <li><font color="green">ON</font>: busybox -&gt; Shells -&gt; Choose your default shell -&gt; ash</li>
+  <li><font color="green">ON</font>: gittup.org initial ramdisk -&gt; Build initial ramdisk</li>
 </ul>
 <pre>
 gittup$ ./menuconfig
@@ -133,7 +134,7 @@ gittup$ tup upd
 <pre>
 gittup$ sh qemu.sh
 </pre>
-<p>When it boots, ncurses generates some weird messages, but after a bit you should be able to press enter to get a shell. Then type nethack. First one to ascend in nethack using gittup.org wins an autographed CD with all my favorite <a href="http://modarchive.org/">MODs</a>. I know you're thinking: "How can I pass up a CD of crappy music, autographed by some guy I don't know, who didn't even write the music?" I couldn't express it better myself. Now get to ascending!</p>
+<p>When it boots, ncurses generates some weird messages about /bin/terminfo.src, but after a bit you should be able to press enter to get a shell. Then type nethack. First one to ascend in nethack using gittup.org wins an autographed CD with all my favorite <a href="http://modarchive.org/">MODs</a>. I know you're thinking: "How can I pass up a CD of crappy music, autographed by some guy I don't know, who didn't even write the music?" I couldn't express it better myself. Now get to ascending!</p>
 
 <h4>Saving your config</h4>
 <p>You should save your tup.config file so you can easily rebuild the distribution you just built. Probably the best way to do that is to track it in git. If you want to you can track it in a separate branch and merge the gittup.git master branch into your local branch. Another option is to just check it into the master branch. It shouldn't ever conflict, since I won't push a file called "tup.config" into the git repository. However, if you use the master branch, you will get messages like "Your branch is ahead of origin/master by X commits", which may be annoying if you plan to do real development in gittup.org and send me patches.</p>

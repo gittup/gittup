@@ -1,0 +1,8 @@
+config GITTUP_INITRD
+	bool "Build initial ramdisk"
+	depends on BLK_DEV_INITRD
+	depends on MKNOD
+	depends on FEATURE_SH_IS_ASH
+	default n
+	help
+	  Builds the ramdisk for gittup.org. This essentially functions as the root filesystem, since there is no real root filesystem.

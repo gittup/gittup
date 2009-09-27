@@ -1,3 +1,4 @@
+ifeq (@(GITTUP_INITRD),y)
 include_rules
 
 # TODO: would be nice to automatically generate this list somehow.
@@ -341,3 +342,4 @@ files-@(NETHACK) += usr/games/lib/nethackdir/record
 : bin/busybox |> !ln |> init
 : $(files-y) |> ^ MKINITRD^ rm -f %o; (for i in $(files-y); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio
 : initrd.cpio |> ^ GZIP %o^ gzip -c %f > %o |> initrd
+endif

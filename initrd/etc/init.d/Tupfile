@@ -1,5 +1,6 @@
 .gitignore
 
-ifeq (@(NCURSES),y)
+# TODO: nested if?
+ifeq (@(GITTUP_INITRD)@(NCURSES),yy)
 : |> ^ GEN %o^ echo "/bin/tic /bin/terminfo.src -o /usr/share/terminfo" > %o |> 50-terminfo.sh
 endif

@@ -30,6 +30,10 @@ menu "Games"
 source "nethack/Kconfig"
 endmenu
 
-menu "gittup.org"
+menu "gittup.org initial ramdisk"
+source "initrd/Kconfig"
+endmenu
+
+menu "gittup.org web"
 source "html/Kconfig"
 endmenu
