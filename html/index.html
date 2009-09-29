@@ -71,8 +71,18 @@ sup {
   <li>objcopy</li>
   <li>flex</li>
   <li>bison</li>
+  <li>gawk</li>
+  <li>ncurses development libraries (for kconfig)</li>
+  <li>gperf (for kconfig)</li>
+  <li>mpfr development libraries (may be included in gittup in the future)</li>
+  <li>gpm development libraries (may be included in gittup in the future)</li>
+  <li>zlib development libraries (may be included in gittup in the future)</li>
   <li>qemu (if you want to run it in an emulator)</li>
 </ul>
+On Ubuntu, this should suffice:
+<pre>
+apt-get install build-essential flex bison qemu gperf libncurses5-dev libncursesw5-dev gawk libmpfr-dev libgpm3-dev zlib1g-dev
+</pre>
 <h4>Install tup</h4>
 <p>You need <a href="http://gittup.org/tup">tup</a>, so install that and put it in your path somewhere.</p>
 <h4>Install kconfig</h4>
