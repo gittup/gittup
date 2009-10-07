@@ -1,0 +1,2 @@
+mkdir /proc
+mount /proc
