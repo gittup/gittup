@@ -19,3 +19,9 @@
 [submodule "uClibc"]
 	path = uClibc
 	url = git://gittup.org/uClibc.git
+[submodule "alsa-lib"]
+	path = alsa-lib
+	url = git://gittup.org/alsa-lib.git
+[submodule "alsa-utils"]
+	path = alsa-utils
+	url = git://gittup.org/alsa-utils.git
