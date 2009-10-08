@@ -316,21 +316,19 @@ files-@(SWAPONOFF) += bin/swaponoff
 files-@(SWITCH_ROOT) += bin/switch_root
 files-@(UMOUNT) += bin/umount
 
+files-y += usr
+files-y += usr/share
 files-y += etc
 files-y += etc/init.d
 files-y += etc/init.d/rcS
 files-y += etc/init.d/01-mknod.sh
 files-@(PROC_FS) += etc/init.d/02-proc.sh
 files-@(PROC_FS) += etc/fstab
-usr-@(NCURSES) = usr
-usr-@(NETHACK) = usr
-files-y += $(usr-y)
 
 files-@(NCURSES) += bin/clear
 files-@(NCURSES) += bin/tic
 files-@(NCURSES) += bin/terminfo.src
 files-@(NCURSES) += etc/init.d/50-terminfo.sh
-files-@(NCURSES) += usr/share
 files-@(NCURSES) += usr/share/terminfo
 
 files-@(NETHACK) += bin/nethack
@@ -340,6 +338,11 @@ files-@(NETHACK) += usr/games/lib/nethackdir
 files-@(NETHACK) += usr/games/lib/nethackdir/nhdat
 files-@(NETHACK) += usr/games/lib/nethackdir/perm
 files-@(NETHACK) += usr/games/lib/nethackdir/record
+
+files-@(SND) += bin/amixer
+files-@(SND) += etc/init.d/30-alsa.sh
+files-@(SND) += usr/share/alsa
+files-@(SND) += usr/share/alsa/alsa.conf
 
 : bin/busybox |> !ln |> init
 : $(files-y) |> ^ MKINITRD^ rm -f %o; (for i in $(files-y); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio
