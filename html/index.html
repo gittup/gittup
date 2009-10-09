@@ -91,7 +91,7 @@ apt-get install build-essential flex bison qemu gperf libncurses5-dev libncurses
 ~$ git clone git://gittup.org/kconfig.git
 ~$ cd kconfig
 kconfig$ tup init
-kconfig$ tup scan &amp;&amp; tup upd
+kconfig$ tup upd
 </pre>
 <p>And make sure you add tup-mconf and tup-conf to your path as well.</p>
 
@@ -111,14 +111,7 @@ gittup$ git submodule update
 <pre>
 gittup$ tup init
 </pre>
-<p>You will also want to start the file monitor. If you restart your computer, the file monitor needs to be restarted as well. You may need to up the /proc/sys/fs/inotify/max_user_watches variable before doing this. Sometimes it works for me with the default 8192, and sometimes I just bump it to 65536.</p>
-<pre>
-gittup$ tup monitor
-</pre>
 
-<p>Or if you don't like the file monitor, just use "tup scan &amp;&amp; tup upd" instead of "tup upd". This will go through the entire directory hierarchy and stat every file, kinda like what make or other build systems would do. Tup is still faster, though.</p>
-
-<p>Although the shell returns immediately after the monitor command, tup will be constructing the initial filesystem database in the background. It finishes when you see the line "Initialized in X seconds."</p>
 <p>Now you need to configure the distribution. This is done with Kconfig, which you run by using <em>./menuconfig</em> or <em>./oldconfig</em>. The first time you run menuconfig, please set the following configuration options:</p>
 <ul>
   <li><font color="green">ON</font>: Linux Kernel -&gt; General Setup -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support</li>
@@ -138,6 +131,14 @@ gittup$ ./menuconfig
 gittup$ tup upd
 </pre>
 <p>Whenever you edit source files, Tupfiles, change the configuration, pull things from git, or whatever, just run <em>tup&nbsp;upd</em> to bring everything up-to-date.</p>
+
+<p>If you want to avoid the time to scan the filesystem everytime you run <em>tup&nbsp;upd</em>, you can run tup's built-in file monitor (this uses the inotify interface). If you restart your computer, the file monitor needs to be restarted as well. You may need to up the /proc/sys/fs/inotify/max_user_watches variable before doing this. Sometimes it works for me with the default 8192, and sometimes I just bump it to 65536.</p>
+<pre>
+gittup$ tup monitor
+</pre>
+
+<p>Although the shell returns immediately after the monitor command, tup will be constructing the initial filesystem database in the background. It finishes when you see the line "Initialized in X seconds."</p>
+<p>With the monitor running, you should be able to change any file in the system and have <em>tup&nbsp;upd</em> start recompiling within a few milliseconds. Of course, depending on the scope of the changes, the actual build time may be much longer.</p>
 
 <h4>Running in qemu</h4>
 <p>Use the qemu.sh script to run the kernel and initrd that you just built. There is no root filesystem image, since everything runs from the ramdisk.</p>
