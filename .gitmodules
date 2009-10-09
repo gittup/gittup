@@ -25,3 +25,6 @@
 [submodule "alsa-utils"]
 	path = alsa-utils
 	url = git://gittup.org/alsa-utils.git
+[submodule "zlib"]
+	path = zlib
+	url = git://gittup.org/zlib.git

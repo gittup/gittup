@@ -24,6 +24,7 @@ endmenu
 
 menu "Support libraries"
 source "ncurses/Kconfig"
+source "zlib/Kconfig"
 endmenu
 
 menu "Games"
