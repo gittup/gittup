@@ -27,7 +27,14 @@ BASE_CFLAGS += $(BASE_PROPER_CFLAGS)
 BASE_CFLAGS += -B$(UCLIBC_ROOT)/libc
 BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/include
 BASE_CFLAGS += -isystem $(UCLIBC_ROOT)/libpthread/linuxthreads.old/sysdeps/i386
-BASE_CFLAGS += -include $(UCLIBC_ROOT)/include/libc-symbols.h
+BASE_CFLAGS += -Dlibc_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibm_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibnsl_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibutil_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibcrypt_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibdl_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibrt_hidden_proto\(...\)=""
+BASE_CFLAGS += -Dlibpthread_hidden_proto\(...\)=""
 BASE_CFLAGS += -idirafter $(LINUX_ROOT)/include
 BASE_CFLAGS += -idirafter $(LINUX_ROOT)/arch/@(ARCH)/include
 BASE_CFLAGS += -ftup-uclibc
