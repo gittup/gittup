@@ -27,6 +27,12 @@ source "ncurses/Kconfig"
 source "zlib/Kconfig"
 endmenu
 
+menu "Sound/Video"
+pushd "mplayer"
+source "Kconfig"
+popd
+endmenu
+
 menu "Games"
 source "nethack/Kconfig"
 endmenu

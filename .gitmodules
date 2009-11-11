@@ -31,3 +31,12 @@
 [submodule "mplayer"]
 	path = mplayer
 	url = git://gittup.org/mplayer.git
+[submodule "libavformat"]
+	path = libavformat
+	url = git://gittup.org/libavformat.git
+[submodule "libavcodec"]
+	path = libavcodec
+	url = git://gittup.org/libavcodec.git
+[submodule "libavutil"]
+	path = libavutil
+	url = git://gittup.org/libavutil.git

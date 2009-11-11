@@ -339,6 +339,8 @@ files-@(NETHACK) += usr/games/lib/nethackdir/nhdat
 files-@(NETHACK) += usr/games/lib/nethackdir/perm
 files-@(NETHACK) += usr/games/lib/nethackdir/record
 
+files-@(MPLAYER) += bin/mplayer
+
 files-@(SND) += bin/amixer
 files-@(SND) += etc/init.d/30-alsa.sh
 files-@(SND) += usr/share/alsa
