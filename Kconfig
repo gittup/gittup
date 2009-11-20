@@ -25,6 +25,7 @@ endmenu
 menu "Support libraries"
 source "ncurses/Kconfig"
 source "zlib/Kconfig"
+source "openssl/Kconfig"
 endmenu
 
 menu "Sound/Video"

@@ -40,3 +40,6 @@
 [submodule "libavutil"]
 	path = libavutil
 	url = git://gittup.org/libavutil.git
+[submodule "openssl"]
+	path = openssl
+	url = git://gittup.org/openssl.git
