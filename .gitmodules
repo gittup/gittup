@@ -43,3 +43,6 @@
 [submodule "openssl"]
 	path = openssl
 	url = git://gittup.org/openssl.git
+[submodule "openssh"]
+	path = openssh
+	url = git://gittup.org/openssh.git

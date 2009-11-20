@@ -38,6 +38,10 @@ menu "Games"
 source "nethack/Kconfig"
 endmenu
 
+menu "Networking Utilities"
+source "openssh/Kconfig"
+endmenu
+
 menu "gittup.org initial ramdisk"
 source "initrd/Kconfig"
 endmenu

@@ -341,6 +341,9 @@ files-@(NETHACK) += usr/games/lib/nethackdir/record
 
 files-@(MPLAYER) += bin/mplayer
 
+files-@(OPENSSH) += bin/ssh
+files-@(OPENSSH) += bin/sftp
+
 files-@(SND) += bin/amixer
 files-@(SND) += etc/init.d/30-alsa.sh
 files-@(SND) += usr/share/alsa
