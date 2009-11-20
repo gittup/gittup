@@ -46,3 +46,6 @@
 [submodule "openssh"]
 	path = openssh
 	url = git://gittup.org/openssh.git
+[submodule "glib"]
+	path = glib
+	url = git://gittup.org/glib.git
