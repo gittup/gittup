@@ -6,6 +6,7 @@ include $(GITTUP_ROOT)/ncurses/install.tup
 include $(GITTUP_ROOT)/nethack/install.tup
 include $(GITTUP_ROOT)/alsa-utils/install.tup
 include $(GITTUP_ROOT)/mplayer/install.tup
+include $(GITTUP_ROOT)/pciutils/install.tup
 include $(GITTUP_ROOT)/openssh/install.tup
 
 endif

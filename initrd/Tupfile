@@ -344,6 +344,8 @@ files-@(NETHACK) += usr/games/lib/nethackdir/record
 
 files-@(MPLAYER) += bin/mplayer
 
+files-@(PCI) += bin/lspci
+
 files-@(OPENSSH) += bin/ssh
 files-@(OPENSSH) += bin/sftp
 

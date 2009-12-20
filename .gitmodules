@@ -49,3 +49,6 @@
 [submodule "glib"]
 	path = glib
 	url = git://gittup.org/glib.git
+[submodule "pciutils"]
+	path = pciutils
+	url = git://gittup.org/pciutils.git
