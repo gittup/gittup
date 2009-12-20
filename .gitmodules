@@ -55,3 +55,6 @@
 [submodule "fuse"]
 	path = fuse
 	url = git://gittup.org/fuse.git
+[submodule "sshfs-fuse"]
+	path = sshfs-fuse
+	url = git://gittup.org/sshfs-fuse.git
