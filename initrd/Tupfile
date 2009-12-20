@@ -324,6 +324,7 @@ files-y += etc
 files-y += etc/init.d
 files-y += etc/init.d/rcS
 files-y += etc/init.d/01-mknod.sh
+files-y += etc/init.d/03-tmp.sh
 files-@(PROC_FS) += etc/init.d/02-proc.sh
 files-@(PROC_FS) += etc/fstab
 
@@ -350,6 +351,9 @@ files-@(SND) += bin/amixer
 files-@(SND) += etc/init.d/30-alsa.sh
 files-@(SND) += usr/share/alsa
 files-@(SND) += usr/share/alsa/alsa.conf
+
+files-y += etc/passwd
+files-y += etc/inittab
 
 : bin/busybox |> !ln |> init
 : $(files-y) |> ^ MKINITRD^ rm -f %o; (for i in $(files-y); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio

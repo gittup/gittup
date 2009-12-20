@@ -5,6 +5,7 @@ mknod /dev/random c 1 8
 mknod /dev/urandom c 1 9
 mknod /dev/tty c 5 0
 chmod 666 /dev/tty
+mknod /dev/tty1 c 4 1
 mknod /dev/tty2 c 4 2
 mknod /dev/tty3 c 4 3
 mknod /dev/tty4 c 4 4
