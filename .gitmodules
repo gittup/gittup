@@ -52,3 +52,6 @@
 [submodule "pciutils"]
 	path = pciutils
 	url = git://gittup.org/pciutils.git
+[submodule "fuse"]
+	path = fuse
+	url = git://gittup.org/fuse.git

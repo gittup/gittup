@@ -346,6 +346,9 @@ files-@(MPLAYER) += bin/mplayer
 
 files-@(PCI) += bin/lspci
 
+files-@(FUSE_FS) += bin/fusermount
+files-@(FUSE_FS) += etc/init.d/09-fuse.sh
+
 files-@(OPENSSH) += bin/ssh
 files-@(OPENSSH) += bin/sftp
 

@@ -8,5 +8,6 @@ include $(GITTUP_ROOT)/alsa-utils/install.tup
 include $(GITTUP_ROOT)/mplayer/install.tup
 include $(GITTUP_ROOT)/pciutils/install.tup
 include $(GITTUP_ROOT)/openssh/install.tup
+include $(GITTUP_ROOT)/fuse/install.tup
 
 endif
