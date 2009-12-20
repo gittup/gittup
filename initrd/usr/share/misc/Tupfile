@@ -1,0 +1,4 @@
+include_rules
+ifeq (@(PCI),y)
+: foreach $(GITTUP_ROOT)/pciutils/pci.ids |> ^ GZIP %o^ gzip -9n < %f > %o  |> %b.gz
+endif

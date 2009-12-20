@@ -345,6 +345,8 @@ files-@(NETHACK) += usr/games/lib/nethackdir/record
 files-@(MPLAYER) += bin/mplayer
 
 files-@(PCI) += bin/lspci
+files-@(PCI) += usr/share/misc
+files-@(PCI) += usr/share/misc/pci.ids.gz
 
 files-@(FUSE_FS) += bin/fusermount
 files-@(FUSE_FS) += etc/init.d/09-fuse.sh
