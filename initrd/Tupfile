@@ -365,6 +365,6 @@ files-y += etc/passwd
 files-y += etc/inittab
 
 : bin/busybox |> !ln |> init
-: $(files-y) |> ^ MKINITRD^ rm -f %o; (for i in $(files-y); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio
+: $(files-y) $(files-m) |> ^ MKINITRD^ (for i in $(files-y) $(files-m); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio
 : initrd.cpio |> ^ GZIP %o^ gzip -c %f > %o |> initrd
 endif
