@@ -61,3 +61,6 @@
 [submodule "tup"]
 	path = tup
 	url = git://gittup.org/tup.git
+[submodule "libdvdread"]
+	path = libdvdread
+	url = git://gittup.org/libdvdread.git
