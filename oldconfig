@@ -2,4 +2,4 @@ KCONFIG_CONFIG=tup.config
 export KCONFIG_CONFIG
 KCONFIG_OVERWRITECONFIG=1
 export KCONFIG_OVERWRITECONFIG
-tup-conf -o ./Kconfig
+tup-conf --oldconfig ./Kconfig
