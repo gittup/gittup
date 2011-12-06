@@ -57,6 +57,10 @@ sup {
 </ul>
 <p>Additionally, you get releases of:</p>
 <ul>
+  <li>mplayer and supporting libraries (imported from svn)</li>
+  <li>openssh-5.2p1</li>
+  <li>openssl-0.9.8k</li>
+  <li>sshfs-fuse-2.2</li>
   <li>gcc-core-4.4.1</li>
   <li>ncurses-5.7</li>
   <li>nethack-3.4.3</li>
@@ -99,15 +103,12 @@ kconfig$ tup upd
 <p>And make sure you add tup-mconf and tup-conf to your path as well.</p>
 
 <h4>Download gittup.org</h4>
-<p>Now you need to download the entire distribution. This is about 500MB worth of stuff to download, so it'll be a while. Also you have to type "git" and "tup" a few million times, because everything involves either git, or tup, or is named after git and/or tup.</p>
+<p>Now you need to download the entire distribution. This is about 600MB worth of stuff to download, so it'll be a while. Also you have to type "git" and "tup" a few million times, because everything involves either git, or tup, or is named after git and/or tup.</p>
 <pre>
-~$ git clone git://gittup.org/gittup.git
+~$ git clone git://github.com/gittup/gittup.git
 ~$ cd gittup
-<strike>gittup$ git submodule init
-gittup$ git submodule update</strike>
-<font color="red">
-Note: Currently not available due to the excessive bandwidth it requires.
-Contact me if you want to give it a try!)</font>
+gittup$ git submodule init
+gittup$ git submodule update
 </pre>
 
 <p>Once you get to this point, you own gittup.org as much as I do. Well, I still own the domain name, cuz I ponied up like 10 bucks for that, but I mean you have all the source, all the history, even this crappy webpage. You can post it all online somewhere and start your own linux distribution.</p>
@@ -130,6 +131,11 @@ gittup$ tup init
 </ul>
 <pre>
 gittup$ ./menuconfig
+</pre>
+
+<p>You can also just start with the example config and tweak it as you like:</p>
+<pre>
+gittup$ cp example-tup.config tup.config
 </pre>
 
 <p>Finally, you can build everything. You can use 'tup upd -j2' or something if you want to parallelize the compilation. Tup is parallel-safe, which is totally sweet.</p>

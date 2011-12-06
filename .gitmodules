@@ -1,66 +1,66 @@
 [submodule "binutils"]
 	path = binutils
-	url = git://gittup.org/binutils.git
+	url = git://github.com/gittup/binutils.git
 [submodule "busybox"]
 	path = busybox
-	url = git://gittup.org/busybox.git
+	url = git://github.com/gittup/busybox.git
 [submodule "gcc"]
 	path = gcc
-	url = git://gittup.org/gcc.git
+	url = git://github.com/gittup/gcc.git
 [submodule "linux"]
 	path = linux
-	url = git://gittup.org/linux.git
+	url = git://github.com/gittup/linux.git
 [submodule "ncurses"]
 	path = ncurses
-	url = git://gittup.org/ncurses.git
+	url = git://github.com/gittup/ncurses.git
 [submodule "nethack"]
 	path = nethack
-	url = git://gittup.org/nethack.git
+	url = git://github.com/gittup/nethack.git
 [submodule "uClibc"]
 	path = uClibc
-	url = git://gittup.org/uClibc.git
+	url = git://github.com/gittup/uClibc.git
 [submodule "alsa-lib"]
 	path = alsa-lib
-	url = git://gittup.org/alsa-lib.git
+	url = git://github.com/gittup/alsa-lib.git
 [submodule "alsa-utils"]
 	path = alsa-utils
-	url = git://gittup.org/alsa-utils.git
+	url = git://github.com/gittup/alsa-utils.git
 [submodule "zlib"]
 	path = zlib
-	url = git://gittup.org/zlib.git
+	url = git://github.com/gittup/zlib.git
 [submodule "mplayer"]
 	path = mplayer
-	url = git://gittup.org/mplayer.git
+	url = git://github.com/gittup/mplayer.git
 [submodule "libavformat"]
 	path = libavformat
-	url = git://gittup.org/libavformat.git
+	url = git://github.com/gittup/libavformat.git
 [submodule "libavcodec"]
 	path = libavcodec
-	url = git://gittup.org/libavcodec.git
+	url = git://github.com/gittup/libavcodec.git
 [submodule "libavutil"]
 	path = libavutil
-	url = git://gittup.org/libavutil.git
+	url = git://github.com/gittup/libavutil.git
 [submodule "openssl"]
 	path = openssl
-	url = git://gittup.org/openssl.git
+	url = git://github.com/gittup/openssl.git
 [submodule "openssh"]
 	path = openssh
-	url = git://gittup.org/openssh.git
+	url = git://github.com/gittup/openssh.git
 [submodule "glib"]
 	path = glib
-	url = git://gittup.org/glib.git
+	url = git://github.com/gittup/glib.git
 [submodule "pciutils"]
 	path = pciutils
-	url = git://gittup.org/pciutils.git
+	url = git://github.com/gittup/pciutils.git
 [submodule "fuse"]
 	path = fuse
-	url = git://gittup.org/fuse.git
+	url = git://github.com/gittup/fuse.git
 [submodule "sshfs-fuse"]
 	path = sshfs-fuse
-	url = git://gittup.org/sshfs-fuse.git
+	url = git://github.com/gittup/sshfs-fuse.git
 [submodule "tup"]
 	path = tup
-	url = git://gittup.org/tup.git
+	url = git://github.com/gittup/tup.git
 [submodule "libdvdread"]
 	path = libdvdread
-	url = git://gittup.org/libdvdread.git
+	url = git://github.com/gittup/libdvdread.git
