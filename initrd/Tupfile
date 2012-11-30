@@ -4,6 +4,7 @@ include_rules
 # TODO: would be nice to automatically generate this list somehow.
 files-y += init
 files-y += bin
+files-y += sbin
 
 files-y += bin/busybox
 files-@(AR) += bin/ar
@@ -363,6 +364,8 @@ files-@(SND) += usr/share/alsa/alsa.conf
 
 files-y += etc/passwd
 files-y += etc/inittab
+
+files-y += sbin/v86d
 
 : bin/busybox |> !ln |> init
 : $(files-y) $(files-m) |> ^ MKINITRD^ (for i in $(files-y) $(files-m); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio

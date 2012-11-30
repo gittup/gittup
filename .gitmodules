@@ -64,3 +64,6 @@
 [submodule "libdvdread"]
 	path = libdvdread
 	url = git://github.com/gittup/libdvdread.git
+[submodule "v86d"]
+	path = v86d
+	url = git://github.com/gittup/v86d.git
