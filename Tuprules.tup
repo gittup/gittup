@@ -7,7 +7,6 @@ LINUX_ROOT = $(TUP_CWD)/linux
 UCLIBC_ROOT = $(TUP_CWD)/uClibc
 SLASH_ROOT = $(TUP_CWD)/slash
 
-compiler_files = $(GCC_ROOT)/gcc/xgcc $(GCC_ROOT)/gcc/cc1 $(BINUTILS_ROOT)/gas/as $(BINUTILS_ROOT)/ld/ld $(GCC_ROOT)/gcc/crtbegin.o $(GCC_ROOT)/gcc/crtend.o $(GCC_ROOT)/gcc/libgcc.a $(UCLIBC_ROOT)/libc/crt1.o $(UCLIBC_ROOT)/libc/crti.o $(UCLIBC_ROOT)/libc/crtn.o $(UCLIBC_ROOT)/libc/libc.a
 compiler_proper = $(GCC_ROOT)/gcc/xgcc $(GCC_ROOT)/gcc/cc1 $(BINUTILS_ROOT)/gas/as
 
 archiver = $(BINUTILS_ROOT)/binutils/ar
@@ -38,12 +37,12 @@ BASE_CFLAGS += -Dlibpthread_hidden_proto\(...\)=""
 BASE_CFLAGS += -idirafter $(LINUX_ROOT)/include
 BASE_CFLAGS += -idirafter $(LINUX_ROOT)/arch/@(ARCH)/include
 BASE_CFLAGS += -ftup-uclibc
-!cc = | $(compiler_files) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |> %B.o
-!cc_link = | $(compiler_files) |> ^ CC-LD %f^ $(CC) %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%f) $(LDFLAGS) $(LDFLAGS_%o) |>
+!cc = | $(GITTUP_ROOT)/<compiler_files> |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |> %B.o
+!cc_link = | $(GITTUP_ROOT)/<compiler_files> |> ^ CC-LD %f^ $(CC) %f -o %o $(BASE_CFLAGS) $(CFLAGS) $(CFLAGS_%f) $(LDFLAGS) $(LDFLAGS_%o) |>
 !cc_proper = | $(compiler_proper) |> ^ CC %f^ $(CC) -c %f -o %o $(BASE_PROPER_CFLAGS) $(CFLAGS) $(CFLAGS_%e) $(CFLAGS_%f) |> %B.o
 
 !ar = | $(archiver) |> ^ AR %o^ $(archiver) crs %o %f |>
-!ld = | $(compiler_files) |> ^ LD %o^ $(CC) %f -o %o $(BASE_CFLAGS) $(LDFLAGS) $(LDFLAGS_%o) |>
+!ld = | $(GITTUP_ROOT)/<compiler_files> |> ^ LD %o^ $(CC) %f -o %o $(BASE_CFLAGS) $(LDFLAGS) $(LDFLAGS_%o) |>
 
 !flex = |> flex -o %o %f |>
 !bison = |> bison -o %B.c -d %f |>
