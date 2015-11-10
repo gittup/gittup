@@ -62,4 +62,4 @@ digraph g {
 	ta1 -> ta2;
 	ta2 -> talabel;
 	a3 -> ta1 [weight=0];
-};
+}

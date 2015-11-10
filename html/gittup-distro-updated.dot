@@ -25,4 +25,4 @@ digraph g {
 	b5 -> tb1 [weight=0];
 	b6 -> tb3 [weight=0];
 	tb3 -> tblabel;
-};
+}

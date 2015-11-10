@@ -22,4 +22,4 @@ digraph g {
 		a3 [peripheries=2];
 	};
 	a -> a3 [style=invis];
-};
+}
