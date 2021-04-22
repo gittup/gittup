@@ -1,6 +1,6 @@
-.gitignore
+include_rules
 
 # TODO: nested if?
 ifeq (@(GITTUP_INITRD)@(NCURSES),yy)
-: |> ^ GEN %o^ echo "/bin/tic /bin/terminfo.src -o /usr/share/terminfo" > %o |> 50-terminfo.sh
+: |> ^ GEN %o^ echo "/bin/tic /bin/terminfo.src -o /usr/share/terminfo" > %o |> 50-terminfo.sh | $(GITTUP_ROOT)/<initrd>
 endif

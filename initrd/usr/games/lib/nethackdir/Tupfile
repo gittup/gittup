@@ -2,7 +2,7 @@ include_rules
 
 # TODO: nested if?
 ifeq (@(GITTUP_INITRD)@(NETHACK),yy)
-: $(GITTUP_ROOT)/nethack/dat/nhdat |> !cp |> %b
-: |> ^ CREATE %o^ touch %o |> perm
-: |> ^ CREATE %o^ touch %o |> record
+: $(GITTUP_ROOT)/nethack/dat/nhdat |> !cp |> %b | $(GITTUP_ROOT)/<initrd>
+: |> ^ CREATE %o^ touch %o |> perm | $(GITTUP_ROOT)/<initrd>
+: |> ^ CREATE %o^ touch %o |> record | $(GITTUP_ROOT)/<initrd>
 endif

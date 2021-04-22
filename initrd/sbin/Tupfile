@@ -1,6 +1,6 @@
 ifeq (@(GITTUP_INITRD),y)
 include_rules
 
-: $(GITTUP_ROOT)/v86d/v86d |> !cp |> v86d
+: $(GITTUP_ROOT)/v86d/v86d |> !cp |> v86d | $(GITTUP_ROOT)/<initrd>
 
 endif

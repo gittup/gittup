@@ -1,0 +1,5 @@
+include_rules
+
+ifeq (@(PROC_FS),1)
+: fstab |> |> $(GITTUP_ROOT)/<initrd>
+endif
