@@ -367,7 +367,7 @@ files-y += etc/inittab
 
 files-y += sbin/v86d
 
-: bin/busybox |> !ln |> init
+: bin/busybox |> !tup_ln |> init
 : $(files-y) $(files-m) |> ^ MKINITRD^ (for i in $(files-y) $(files-m); do echo $i; done) | cpio --quiet -o -H newc > %o |> initrd.cpio
 : initrd.cpio |> ^ GZIP %o^ gzip -c %f > %o |> initrd
 endif

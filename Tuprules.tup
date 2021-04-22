@@ -47,7 +47,6 @@ BASE_CFLAGS += -ftup-uclibc
 !flex = |> flex -o %o %f |>
 !bison = |> bison -o %B.c -d %f |>
 
-!ln = |> ^ LN %o -> %f^ ln -s %f %o |>
 !cp = |> ^ CP %o^ cp %f %o |>
 
 CFLAGS += -O2
